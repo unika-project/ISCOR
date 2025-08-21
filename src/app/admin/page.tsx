@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import ContentEditor from '@/components/ContentEditor';
+import CourseManager from '@/components/CourseManager';
+import ContentManager from '@/components/ContentManager';
 import { 
   ChartBarIcon,
   UsersIcon,
@@ -34,7 +37,9 @@ import {
   HomeIcon,
   NewspaperIcon,
   UserIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
+  ArrowRightOnRectangleIcon,
+  MapPinIcon
 } from '@heroicons/react/24/outline';
 
 // Interfaces para el contenido editable del sitio
@@ -321,12 +326,14 @@ interface Course {
 
 export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [activeSection, setActiveSection] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  const [showCourseManager, setShowCourseManager] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<any>(null);
+  const [showContentManager, setShowContentManager] = useState(false);
+  const [editingContent, setEditingContent] = useState<any>(null);
+  const [editingSection, setEditingSection] = useState<string>('');
+  const [editingSubsection, setEditingSubsection] = useState<string>('');
   const router = useRouter();
 
   // Datos de ejemplo para el dashboard
@@ -337,26 +344,311 @@ export default function AdminPanel() {
     pendingRequests: 23
   };
 
-  // Datos de ejemplo para cursos
+  // Datos de ejemplo para cursos - Todos los servicios del portafolio
   const courses: Course[] = [
     {
       id: '1',
       name: 'Montacargas',
       slug: 'montacargas',
       image: '/montacargas .png',
-      description: 'Capacitación y certificación en operación segura de montacargas.',
+      description: 'Capacitación y certificación en operación segura de montacargas, cumpliendo normativas de seguridad industrial.',
       duration: '40 horas',
       certification: 'Certificado válido por 2 años',
       gradient: 'from-orange-600 to-red-600',
-      detailedDescription: 'Curso completo de operación segura de montacargas.',
-      objectives: ['Aprender operación segura', 'Conocer normativas vigentes'],
-      benefits: ['Certificación oficial', 'Mejores oportunidades laborales'],
-      requirements: ['Mayor de 18 años', 'Documentos de identidad'],
-      modules: ['Teoría de montacargas', 'Práctica operacional'],
+      detailedDescription: 'Curso completo de operación segura de montacargas que incluye teoría y práctica para garantizar la seguridad en el manejo de equipos.',
+      objectives: ['Aprender operación segura de montacargas', 'Conocer normativas vigentes de seguridad', 'Desarrollar habilidades prácticas'],
+      benefits: ['Certificación oficial reconocida', 'Mejores oportunidades laborales', 'Reducción de accidentes laborales'],
+      requirements: ['Mayor de 18 años', 'Documentos de identidad', 'Experiencia básica en equipos'],
+      modules: ['Teoría de montacargas', 'Práctica operacional', 'Normativas de seguridad', 'Mantenimiento preventivo'],
       instructor: 'Ing. Carlos Mendoza',
       price: '$450.000 COP',
       location: 'Bogotá, Colombia',
       schedule: 'Lunes a Viernes 8:00 AM - 5:00 PM'
+    },
+    {
+      id: '2',
+      name: 'Control del Fuego',
+      slug: 'control-del-fuego',
+      image: '/fuego.png',
+      description: 'Sistemas de prevención, detección y extinción de incendios con equipos certificados y personal capacitado.',
+      duration: '32 horas',
+      certification: 'Certificado válido por 3 años',
+      gradient: 'from-red-600 to-orange-600',
+      detailedDescription: 'Capacitación integral en prevención y control de incendios para entornos industriales.',
+      objectives: ['Prevenir incendios industriales', 'Manejar equipos de extinción', 'Implementar protocolos de emergencia'],
+      benefits: ['Certificación de bomberos', 'Seguridad laboral mejorada', 'Cumplimiento normativo'],
+      requirements: ['Mayor de 18 años', 'Buen estado físico', 'Disponibilidad completa'],
+      modules: ['Prevención de incendios', 'Equipos de extinción', 'Protocolos de emergencia', 'Prácticas de evacuación'],
+      instructor: 'Cpt. Juan Ramírez',
+      price: '$380.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 4:00 PM'
+    },
+    {
+      id: '3',
+      name: 'Planes de emergencia',
+      slug: 'planes-de-emergencia',
+      image: '/plandeemergencia.png',
+      description: 'Desarrollo e implementación de planes de emergencia y evacuación adaptados a cada empresa.',
+      duration: '24 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-yellow-600 to-orange-600',
+      detailedDescription: 'Desarrollo de planes de emergencia personalizados para diferentes tipos de empresas.',
+      objectives: ['Crear planes de emergencia', 'Implementar protocolos', 'Capacitar personal'],
+      benefits: ['Cumplimiento legal', 'Reducción de riesgos', 'Preparación organizacional'],
+      requirements: ['Conocimientos básicos de seguridad', 'Responsabilidad organizacional'],
+      modules: ['Análisis de riesgos', 'Desarrollo de protocolos', 'Capacitación de brigadas', 'Simulacros'],
+      instructor: 'Ing. María González',
+      price: '$320.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 9:00 AM - 3:00 PM'
+    },
+    {
+      id: '4',
+      name: 'Brigada de emergencia',
+      slug: 'brigada-de-emergencia',
+      image: '/brigada_de_emergencia.png',
+      description: 'Formación y entrenamiento de brigadas de emergencia para respuesta rápida ante incidentes.',
+      duration: '48 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-red-600 to-pink-600',
+      detailedDescription: 'Formación completa de brigadas de emergencia para respuesta efectiva ante incidentes.',
+      objectives: ['Formar brigadas de emergencia', 'Capacitar en primeros auxilios', 'Entrenar en evacuación'],
+      benefits: ['Respuesta rápida a emergencias', 'Reducción de daños', 'Seguridad organizacional'],
+      requirements: ['Buen estado físico', 'Disponibilidad 24/7', 'Compromiso con la seguridad'],
+      modules: ['Primeros auxilios', 'Evacuación y rescate', 'Control de emergencias', 'Coordinación de brigadas'],
+      instructor: 'Dr. Ana Martínez',
+      price: '$520.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 6:00 PM'
+    },
+    {
+      id: '5',
+      name: 'Materiales Peligrosos',
+      slug: 'materiales-peligrosos',
+      image: '/materiales_peligrosos.png',
+      description: 'Manejo seguro de materiales peligrosos, almacenamiento y transporte según normativas vigentes.',
+      duration: '40 horas',
+      certification: 'Certificado válido por 3 años',
+      gradient: 'from-yellow-600 to-orange-600',
+      detailedDescription: 'Capacitación especializada en el manejo seguro de materiales peligrosos.',
+      objectives: ['Manejar materiales peligrosos', 'Implementar protocolos de seguridad', 'Cumplir normativas'],
+      benefits: ['Certificación HAZMAT', 'Seguridad en el trabajo', 'Cumplimiento legal'],
+      requirements: ['Mayor de 18 años', 'Experiencia en logística', 'Conocimientos de química básica'],
+      modules: ['Clasificación de materiales', 'Protocolos de manejo', 'Almacenamiento seguro', 'Transporte especializado'],
+      instructor: 'Qco. Roberto Silva',
+      price: '$480.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 5:00 PM'
+    },
+    {
+      id: '6',
+      name: 'Tareas de alto riesgo',
+      slug: 'tareas-de-alto-riesgo',
+      image: '/tareas_de_alto_riesgo.png',
+      description: 'Supervisión y control de trabajos en altura, espacios confinados y otras tareas de alto riesgo.',
+      duration: '56 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-purple-600 to-indigo-600',
+      detailedDescription: 'Capacitación integral para trabajos en altura y espacios confinados.',
+      objectives: ['Realizar trabajos en altura', 'Supervisar espacios confinados', 'Implementar medidas de seguridad'],
+      benefits: ['Certificación de altura', 'Seguridad en trabajos críticos', 'Cumplimiento normativo'],
+      requirements: ['Buen estado físico', 'Sin vértigo', 'Experiencia en construcción'],
+      modules: ['Trabajos en altura', 'Espacios confinados', 'Equipos de protección', 'Supervisión de seguridad'],
+      instructor: 'Ing. Luis Herrera',
+      price: '$650.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 6:00 PM'
+    },
+    {
+      id: '7',
+      name: 'Seguridad acuática',
+      slug: 'seguridad-acuatica',
+      image: '/seguridad_acuatica.png',
+      description: 'Protocolos de seguridad para trabajos en entornos acuáticos y actividades subacuáticas.',
+      duration: '32 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-blue-600 to-cyan-600',
+      detailedDescription: 'Capacitación especializada en seguridad para trabajos en entornos acuáticos.',
+      objectives: ['Trabajar en entornos acuáticos', 'Implementar protocolos de seguridad', 'Manejar equipos subacuáticos'],
+      benefits: ['Certificación acuática', 'Seguridad en trabajos marítimos', 'Especialización profesional'],
+      requirements: ['Buen nadador', 'Estado físico óptimo', 'Sin problemas cardíacos'],
+      modules: ['Seguridad acuática', 'Equipos subacuáticos', 'Protocolos de emergencia', 'Trabajos marítimos'],
+      instructor: 'Cpt. Marina Acuática',
+      price: '$420.000 COP',
+      location: 'Cartagena, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 4:00 PM'
+    },
+    {
+      id: '8',
+      name: 'Seguridad fisica',
+      slug: 'seguridad-fisica',
+      image: '/seguridad_fisica.png',
+      description: 'Implementación de medidas de seguridad física y control de acceso en instalaciones industriales.',
+      duration: '24 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-gray-600 to-slate-600',
+      detailedDescription: 'Capacitación en seguridad física y control de acceso para instalaciones industriales.',
+      objectives: ['Implementar seguridad física', 'Controlar accesos', 'Proteger instalaciones'],
+      benefits: ['Seguridad organizacional', 'Protección de activos', 'Cumplimiento normativo'],
+      requirements: ['Experiencia en seguridad', 'Conocimientos de sistemas', 'Responsabilidad'],
+      modules: ['Sistemas de seguridad', 'Control de acceso', 'Vigilancia electrónica', 'Protocolos de seguridad'],
+      instructor: 'Ing. Seguridad Física',
+      price: '$350.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 9:00 AM - 3:00 PM'
+    },
+    {
+      id: '9',
+      name: 'Primeros auxilios',
+      slug: 'primeros-auxilios',
+      image: '/primeros_auxilios.png',
+      description: 'Capacitación en primeros auxilios y atención prehospitalaria para emergencias médicas.',
+      duration: '16 horas',
+      certification: 'Certificado válido por 1 año',
+      gradient: 'from-green-600 to-emerald-600',
+      detailedDescription: 'Capacitación básica en primeros auxilios para atención de emergencias médicas.',
+      objectives: ['Aplicar primeros auxilios', 'Atender emergencias', 'Estabilizar pacientes'],
+      benefits: ['Certificación en primeros auxilios', 'Capacidad de respuesta', 'Seguridad laboral'],
+      requirements: ['Mayor de 18 años', 'Buen estado de salud', 'Disposición para ayudar'],
+      modules: ['Evaluación primaria', 'RCP básico', 'Control de hemorragias', 'Inmovilización'],
+      instructor: 'Dr. Emergencias',
+      price: '$280.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Sábados 8:00 AM - 4:00 PM'
+    },
+    {
+      id: '10',
+      name: 'Gestión de calidad',
+      slug: 'gestion-de-calidad',
+      image: '/control_de_calidad.png',
+      description: 'Sistemas de gestión de calidad ISO 9001 y auditorías para optimizar procesos empresariales.',
+      duration: '40 horas',
+      certification: 'Certificado válido por 3 años',
+      gradient: 'from-blue-600 to-cyan-600',
+      detailedDescription: 'Implementación de sistemas de gestión de calidad ISO 9001.',
+      objectives: ['Implementar ISO 9001', 'Realizar auditorías', 'Optimizar procesos'],
+      benefits: ['Certificación ISO', 'Mejora de procesos', 'Competitividad empresarial'],
+      requirements: ['Conocimientos de gestión', 'Experiencia empresarial', 'Compromiso organizacional'],
+      modules: ['Fundamentos ISO 9001', 'Implementación de SGC', 'Auditorías internas', 'Mejora continua'],
+      instructor: 'Ing. Calidad Total',
+      price: '$580.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 5:00 PM'
+    },
+    {
+      id: '11',
+      name: 'Inspecciones certificadas',
+      slug: 'inspecciones-certificadas',
+      image: '/inspecciones_certificadas.png',
+      description: 'Inspecciones técnicas certificadas de equipos, instalaciones y cumplimiento normativo.',
+      duration: '24 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-indigo-600 to-purple-600',
+      detailedDescription: 'Capacitación en inspecciones técnicas certificadas para equipos e instalaciones.',
+      objectives: ['Realizar inspecciones técnicas', 'Certificar equipos', 'Cumplir normativas'],
+      benefits: ['Certificación técnica', 'Cumplimiento legal', 'Seguridad operacional'],
+      requirements: ['Ingeniería técnica', 'Experiencia en inspecciones', 'Conocimientos normativos'],
+      modules: ['Normativas técnicas', 'Procedimientos de inspección', 'Certificación de equipos', 'Reportes técnicos'],
+      instructor: 'Ing. Inspector Certificado',
+      price: '$420.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 9:00 AM - 3:00 PM'
+    },
+    {
+      id: '12',
+      name: 'Reintegro laboral',
+      slug: 'reintegro-laboral',
+      image: '/reintegro_laboral.png',
+      description: 'Programas de reintegro laboral y adaptación de puestos de trabajo para trabajadores lesionados.',
+      duration: '16 horas',
+      certification: 'Certificado válido por 1 año',
+      gradient: 'from-green-600 to-teal-600',
+      detailedDescription: 'Programas especializados para reintegro laboral de trabajadores lesionados.',
+      objectives: ['Reintegrar trabajadores', 'Adaptar puestos de trabajo', 'Prevenir nuevas lesiones'],
+      benefits: ['Reintegración exitosa', 'Reducción de ausentismo', 'Cumplimiento legal'],
+      requirements: ['Evaluación médica', 'Disposición del trabajador', 'Compromiso empresarial'],
+      modules: ['Evaluación de capacidades', 'Adaptación de puestos', 'Seguimiento médico', 'Prevención de recaídas'],
+      instructor: 'Dr. Rehabilitación Laboral',
+      price: '$320.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 9:00 AM - 3:00 PM'
+    },
+    {
+      id: '13',
+      name: 'Alturas',
+      slug: 'alturas',
+      image: '/alturas.png',
+      description: 'Capacitación y certificación en trabajos en altura con equipos de protección personal.',
+      duration: '40 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-orange-600 to-red-600',
+      detailedDescription: 'Capacitación especializada en trabajos en altura con equipos de protección personal.',
+      objectives: ['Trabajar en altura', 'Usar equipos de protección', 'Implementar medidas de seguridad'],
+      benefits: ['Certificación de altura', 'Seguridad en trabajos críticos', 'Cumplimiento normativo'],
+      requirements: ['Buen estado físico', 'Sin vértigo', 'Experiencia en construcción'],
+      modules: ['Trabajos en altura', 'Equipos de protección', 'Protocolos de seguridad', 'Rescate en altura'],
+      instructor: 'Ing. Alturas Especializado',
+      price: '$480.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 5:00 PM'
+    },
+    {
+      id: '14',
+      name: 'Lockout tagout',
+      slug: 'lockout-tagout',
+      image: '/Lockout_tagout.png',
+      description: 'Procedimientos de bloqueo y etiquetado para mantenimiento seguro de equipos energizados.',
+      duration: '24 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-slate-600 to-gray-600',
+      detailedDescription: 'Capacitación en procedimientos de bloqueo y etiquetado para mantenimiento seguro.',
+      objectives: ['Implementar LOTO', 'Mantener equipos energizados', 'Prevenir accidentes'],
+      benefits: ['Seguridad en mantenimiento', 'Prevención de accidentes', 'Cumplimiento OSHA'],
+      requirements: ['Personal de mantenimiento', 'Conocimientos eléctricos', 'Responsabilidad'],
+      modules: ['Procedimientos LOTO', 'Equipos de bloqueo', 'Protocolos de seguridad', 'Mantenimiento seguro'],
+      instructor: 'Ing. Mantenimiento Industrial',
+      price: '$380.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 9:00 AM - 3:00 PM'
+    },
+    {
+      id: '15',
+      name: 'Espacios confinados',
+      slug: 'espacios-confinados',
+      image: '/Espacios_confinados.png',
+      description: 'Entrenamiento y supervisión para trabajos en espacios confinados con protocolos de seguridad.',
+      duration: '40 horas',
+      certification: 'Certificado válido por 2 años',
+      gradient: 'from-purple-600 to-indigo-600',
+      detailedDescription: 'Capacitación especializada para trabajos en espacios confinados.',
+      objectives: ['Trabajar en espacios confinados', 'Supervisar operaciones', 'Implementar protocolos'],
+      benefits: ['Certificación especializada', 'Seguridad en trabajos críticos', 'Cumplimiento normativo'],
+      requirements: ['Buen estado físico', 'Sin claustrofobia', 'Experiencia industrial'],
+      modules: ['Identificación de espacios confinados', 'Protocolos de entrada', 'Supervisión de seguridad', 'Rescate en espacios confinados'],
+      instructor: 'Ing. Espacios Confinados',
+      price: '$520.000 COP',
+      location: 'Bogotá, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 5:00 PM'
+    },
+    {
+      id: '16',
+      name: 'Buceo',
+      slug: 'buceo',
+      image: '/buceo.png',
+      description: 'Servicios de buceo industrial y comercial con equipos certificados y personal especializado.',
+      duration: '80 horas',
+      certification: 'Certificado válido por 3 años',
+      gradient: 'from-blue-600 to-cyan-600',
+      detailedDescription: 'Capacitación completa en buceo industrial y comercial con equipos certificados.',
+      objectives: ['Bucear en entornos industriales', 'Manejar equipos especializados', 'Realizar trabajos subacuáticos'],
+      benefits: ['Certificación de buceo', 'Especialización profesional', 'Trabajos especializados'],
+      requirements: ['Excelente estado físico', 'Experiencia en natación', 'Sin problemas cardíacos'],
+      modules: ['Teoría del buceo', 'Equipos especializados', 'Trabajos subacuáticos', 'Seguridad en buceo'],
+      instructor: 'Cpt. Buceo Industrial',
+      price: '$850.000 COP',
+      location: 'Cartagena, Colombia',
+      schedule: 'Lunes a Viernes 8:00 AM - 6:00 PM'
     }
   ];
 
@@ -364,23 +656,65 @@ export default function AdminPanel() {
     router.push('/login');
   };
 
-  const handleSave = async () => {
+
+
+  const handleEditSection = (section: string, subsection?: string) => {
+    setEditingSection(section);
+    setEditingSubsection(subsection || '');
+    setEditingContent(null);
+    setShowContentManager(true);
+  };
+
+  const handleCourseEdit = (course?: Course) => {
+    setEditingCourse(course || null);
+    setShowCourseManager(true);
+  };
+
+  const handleCourseSave = async (course: Course) => {
     setIsSaving(true);
     setSaveMessage('');
     
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simular guardado
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    setSaveMessage('Cambios guardados exitosamente');
+    setSaveMessage('Curso guardado exitosamente');
     setIsSaving(false);
-    setIsEditing(false);
+    setShowCourseManager(false);
+    setEditingCourse(null);
     
     setTimeout(() => setSaveMessage(''), 3000);
   };
 
-  const handleEditSection = (section: string, item?: any) => {
-    setActiveSection(section);
-    setSelectedItem(item);
-    setIsEditing(true);
+  const handleCourseDelete = async (courseId: string) => {
+    if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
+      setIsSaving(true);
+      setSaveMessage('');
+      
+      // Simular eliminación
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setSaveMessage('Curso eliminado exitosamente');
+      setIsSaving(false);
+      
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
+  };
+
+  const handleContentSave = async (content: any) => {
+    setIsSaving(true);
+    setSaveMessage('');
+    
+    // Simular guardado
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setSaveMessage('Contenido guardado exitosamente');
+    setIsSaving(false);
+    setShowContentManager(false);
+    setEditingContent(null);
+    setEditingSection('');
+    setEditingSubsection('');
+    
+    setTimeout(() => setSaveMessage(''), 3000);
   };
 
   const getSectionIcon = (section: string) => {
@@ -427,28 +761,12 @@ export default function AdminPanel() {
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
-              {isEditing && (
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setIsEditing(false)}
-                    className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors duration-200"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    onClick={handleSave}
-                    disabled={isSaving}
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200 disabled:opacity-50"
-                  >
-                    {isSaving ? 'Guardando...' : 'Guardar Cambios'}
-                  </button>
-                </div>
-              )}
+                         <div className="flex items-center space-x-4">
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-200"
+                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors duration-200 flex items-center"
               >
+                <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2" />
                 Cerrar Sesión
               </button>
             </div>
@@ -504,7 +822,7 @@ export default function AdminPanel() {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-slate-600">Total Usuarios</p>
-                    <p className="text-2xl font-bold text-slate-900">{stats.totalUsers.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-slate-900">{stats.totalUsers.toLocaleString('en-US')}</p>
                   </div>
                 </div>
               </div>
@@ -552,21 +870,21 @@ export default function AdminPanel() {
                 <h3 className="text-lg font-semibold text-slate-900 mb-4">Acciones Rápidas</h3>
                 <div className="space-y-3">
                   <button 
-                    onClick={() => handleEditSection('courses')}
+                    onClick={() => setActiveTab('courses')}
                     className="w-full flex items-center justify-between p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200"
                   >
                     <span className="text-sm font-medium text-blue-700">Gestionar Cursos</span>
                     <PlusIcon className="h-4 w-4 text-blue-600" />
                   </button>
                   <button 
-                    onClick={() => handleEditSection('home')}
+                    onClick={() => setActiveTab('content')}
                     className="w-full flex items-center justify-between p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors duration-200"
                   >
                     <span className="text-sm font-medium text-green-700">Editar Página de Inicio</span>
                     <PencilIcon className="h-4 w-4 text-green-600" />
                   </button>
                   <button 
-                    onClick={() => handleEditSection('global')}
+                    onClick={() => setActiveTab('global')}
                     className="w-full flex items-center justify-between p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200"
                   >
                     <span className="text-sm font-medium text-purple-700">Configuración Global</span>
@@ -777,7 +1095,7 @@ export default function AdminPanel() {
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-slate-900">Gestión de Cursos</h2>
               <button
-                onClick={() => handleEditSection('courses', 'new')}
+                onClick={() => handleCourseEdit()}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
               >
                 <PlusIcon className="h-5 w-5 mr-2 inline" />
@@ -785,14 +1103,18 @@ export default function AdminPanel() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {courses.map((course) => (
-                <div key={course.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div key={course.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-lg transition-shadow duration-200">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                        <AcademicCapIcon className="h-6 w-6 text-white" />
-                      </div>
+                                         <div className="flex items-center space-x-3">
+                                               <Image
+                          src={course.image}
+                          alt={course.name}
+                          width={80}
+                          height={80}
+                          className="w-20 h-20 object-cover rounded-lg"
+                        />
                       <div>
                         <h3 className="text-lg font-semibold text-slate-900">{course.name}</h3>
                         <p className="text-sm text-slate-600">{course.duration} • {course.certification}</p>
@@ -800,20 +1122,30 @@ export default function AdminPanel() {
                     </div>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => handleEditSection('courses', course)}
+                        onClick={() => handleCourseEdit(course)}
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                        title="Editar curso"
                       >
                         <PencilIcon className="h-4 w-4" />
                       </button>
-                      <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                      <button 
+                        onClick={() => handleCourseDelete(course.id)}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                        title="Eliminar curso"
+                      >
                         <TrashIcon className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
                   
-                  <p className="text-slate-600 mb-4">{course.description}</p>
+                  <p className="text-slate-600 mb-4 text-sm" style={{ 
+                    display: '-webkit-box', 
+                    WebkitLineClamp: 2, 
+                    WebkitBoxOrient: 'vertical', 
+                    overflow: 'hidden' 
+                  }}>{course.description}</p>
                   
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                     <div>
                       <span className="font-medium text-slate-700">Instructor:</span>
                       <p className="text-slate-600">{course.instructor}</p>
@@ -822,6 +1154,17 @@ export default function AdminPanel() {
                       <span className="font-medium text-slate-700">Precio:</span>
                       <p className="text-slate-600">{course.price}</p>
                     </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-slate-500">
+                    <span className="flex items-center">
+                      <MapPinIcon className="h-3 w-3 mr-1" />
+                      {course.location}
+                    </span>
+                    <span className="flex items-center">
+                      <ClockIcon className="h-3 w-3 mr-1" />
+                      {course.schedule}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -892,87 +1235,35 @@ export default function AdminPanel() {
           </div>
         )}
 
-        {/* Modal de Edición en Tiempo Real */}
-        {isEditing && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="relative bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
-              {/* Header del Modal */}
-              <div className="flex items-center justify-between p-6 border-b border-slate-200">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 bg-gradient-to-r ${getSectionColor(activeSection)} rounded-lg flex items-center justify-center`}>
-                    {/* Assuming getSectionIcon returns a component, not a string for className */}
-                    {React.createElement(getSectionIcon(activeSection), { className: "h-5 w-5 text-white" })}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Editando: {activeSection === 'home' ? 'Página de Inicio' : 
-                                 activeSection === 'company' ? 'Página de Empresa' :
-                                 activeSection === 'team' ? 'Página de Equipo' :
-                                 activeSection === 'contact' ? 'Página de Contacto' :
-                                 activeSection === 'courses' ? 'Gestión de Cursos' :
-                                 activeSection === 'global' ? 'Configuración Global' : 'Contenido'}
-                    </h3>
-                    <p className="text-sm text-slate-600">Edita el contenido y ve los cambios en vivo</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setShowPreview(!showPreview)}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
-                      showPreview 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    <EyeIcon className="h-4 w-4 mr-2 inline" />
-                    {showPreview ? 'Ocultar Vista Previa' : 'Mostrar Vista Previa'}
-                  </button>
-                  <button
-                    onClick={() => setIsEditing(false)}
-                    className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors duration-200"
-                  >
-                    <XMarkIcon className="h-6 w-6" />
-                  </button>
-                </div>
-              </div>
+        
 
-              {/* Contenido del Modal */}
-              <div className="flex h-[calc(90vh-120px)]">
-                {/* Panel de Edición */}
-                <div className={`${showPreview ? 'w-1/2' : 'w-full'} p-6 overflow-y-auto border-r border-slate-200`}>
-                  <div className="space-y-6">
-                    <div className="text-center py-8">
-                      <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <PencilIcon className="h-8 w-8 text-slate-400" />
-                      </div>
-                      <h4 className="text-lg font-semibold text-slate-900 mb-2">Editor de Contenido</h4>
-                      <p className="text-slate-600">
-                        Aquí aparecerán los campos específicos para editar el contenido de la sección seleccionada.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                 {/* Course Manager Modal */}
+         {showCourseManager && (
+           <CourseManager
+             onClose={() => {
+               setShowCourseManager(false);
+               setEditingCourse(null);
+             }}
+             onSave={handleCourseSave}
+             initialCourse={editingCourse}
+           />
+         )}
 
-                {/* Vista Previa */}
-                {showPreview && (
-                  <div className="w-1/2 p-6 overflow-y-auto bg-slate-50">
-                    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                      <h4 className="text-lg font-semibold text-slate-900 mb-4">Vista Previa</h4>
-                      <div className="text-center py-8">
-                        <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <EyeIcon className="h-8 w-8 text-slate-400" />
-                        </div>
-                        <p className="text-slate-600">
-                          Aquí se mostrará la vista previa del contenido editado.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+         {/* Content Manager Modal */}
+         {showContentManager && (
+           <ContentManager
+             onClose={() => {
+               setShowContentManager(false);
+               setEditingContent(null);
+               setEditingSection('');
+               setEditingSubsection('');
+             }}
+             onSave={handleContentSave}
+             section={editingSection}
+             subsection={editingSubsection}
+             initialContent={editingContent}
+           />
+         )}
       </div>
     </div>
   );
