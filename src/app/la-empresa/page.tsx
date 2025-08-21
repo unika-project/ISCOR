@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { 
   BuildingOfficeIcon, 
   FlagIcon, 
@@ -13,218 +12,199 @@ import {
   StarIcon,
   HeartIcon,
   LightBulbIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  TrophyIcon,
+  GlobeAltIcon,
+  ClockIcon,
+  UsersIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function LaEmpresa() {
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 sm:py-24">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-blue-800/5"></div>
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div className="bg-white">
+      {/* Hero Section - Estilo IBM/Cisco Profesional */}
+      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+        {/* Background Pattern - Estilo Siemens */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+
+        {/* Geometric Shapes - Estilo GE/Boeing */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-32 h-32 border border-white/10 rotate-45"></div>
+          <div className="absolute bottom-20 right-10 w-24 h-24 border border-white/10 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-white/10 transform rotate-12"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-20 h-20 border border-white/10 transform -rotate-45"></div>
+        </div>
+
+        {/* Gradient Overlay - Estilo Lockheed Martin */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-blue-900/60 to-slate-900/80"></div>
         
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
           <div className="mx-auto max-w-4xl text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-8"
-            >
-              <BuildingOfficeIcon className="h-4 w-4 mr-2" />
+            {/* Badge - Estilo Cisco */}
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium mb-8">
+              <BuildingOfficeIcon className="h-5 w-5 mr-3" />
               Nuestra Empresa
-            </motion.div>
+            </div>
             
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl font-bold tracking-tight sm:text-7xl bg-gradient-to-r from-gray-900 via-blue-800 to-blue-600 bg-clip-text text-transparent"
-            >
-              ¿Quiénes Somos?
-            </motion.h1>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-8 flex justify-center"
-            >
+            {/* Main Heading - Estilo IBM */}
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8">
+              <span className="text-white">¿Quiénes</span>
+              <br />
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Somos?</span>
+            </h1>
+
+            {/* Logo */}
+            <div className="mt-8 flex justify-center mb-8">
               <img
                 src="/iscor_texto_colores.svg"
                 alt="ISCOR S.A.S"
                 className="h-16 sm:h-20 lg:h-24 w-auto"
               />
-            </motion.div>
+            </div>
             
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 text-2xl text-blue-600 font-semibold italic"
-            >
+            {/* Subtitle - Estilo Siemens */}
+            <p className="text-xl md:text-2xl text-blue-300 font-semibold italic">
               "Ingeniería de Seguridad y Control de Riesgos S.A.S"
-            </motion.p>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* About Section - Estilo GE Profesional */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+        {/* Background Pattern - Estilo IBM */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 lg:p-12"
-            >
+            <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 lg:p-12">
               {/* Background gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-blue-100/30 rounded-3xl"></div>
               
               <div className="relative z-10 space-y-8">
                 {/* Descripción General */}
                 <div className="border-l-4 border-blue-600 pl-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Descripción General</h3>
-                  <p className="text-xl text-gray-700 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">Descripción General</h3>
+                  <p className="text-xl text-slate-700 leading-relaxed">
                     ISCOR S.A.S "Ingeniería de Seguridad y Control de Riesgos S.A.S" es una empresa creada para atender y ayudar a diferentes compañías en Seguridad Industrial y atención de emergencias y para contribuir con la divulgación de una cultura de seguridad, autocuidado y desarrollo del hombre en su entorno de trabajo.
                   </p>
                 </div>
                 
                 {/* Servicios Principales */}
                 <div className="border-l-4 border-blue-600 pl-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Servicios Principales</h3>
-                  <p className="text-xl text-gray-700 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">Servicios Principales</h3>
+                  <p className="text-xl text-slate-700 leading-relaxed">
                     Diseñamos, Implementamos y auditamos sus Sistemas de Gestión para la Seguridad y Salud de los Trabajadores SGSST y proveemos todos los complementos exigidos por la ley.
                   </p>
                 </div>
                 
                 {/* Certificaciones */}
                 <div className="border-l-4 border-blue-600 pl-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Certificaciones y Membresías</h3>
-                  <p className="text-xl text-gray-700 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">Certificaciones y Membresías</h3>
+                  <p className="text-xl text-slate-700 leading-relaxed">
                     ISCOR es miembro del CCS – Consejo Colombiano de Seguridad y NFPA – National Fire Protection Association, organización internacional líder en todo lo referente con la protección y la seguridad.
                   </p>
                 </div>
                 
                 {/* Experiencia */}
                 <div className="border-l-4 border-blue-600 pl-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Experiencia y Posicionamiento</h3>
-                  <p className="text-xl text-gray-700 leading-relaxed">
-                    Nuestra experiencia de más de 16 años en control de tareas de alto riesgo, nos ha posicionado con las mejores empresas de nuestro país.
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">Experiencia y Posicionamiento</h3>
+                  <p className="text-xl text-slate-700 leading-relaxed">
+                    Nuestra experiencia de más de 18 años en control de tareas de alto riesgo, nos ha posicionado con las mejores empresas de nuestro país.
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Misión y Visión */}
-      <section className="relative py-16 sm:py-24">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-gray-50"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6"
-            >
-              <FlagIcon className="h-4 w-4 mr-2" />
+      {/* Misión y Visión - Estilo Siemens Profesional */}
+      <section className="py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-20">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-8">
+              <FlagIcon className="h-5 w-5 mr-3" />
               Nuestro Propósito
-            </motion.div>
-            <h2 className="text-base font-semibold leading-7 text-blue-600">Misión y Visión</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Lo que nos impulsa
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8">
+              Misión y Visión
+            </h2>
+            
+            <p className="text-xl text-slate-600 leading-relaxed">
+              Los principios fundamentales que guían nuestro trabajo y definen nuestro futuro.
             </p>
           </div>
           
           <div className="grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-2">
             {/* Misión */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <div className="relative z-10">
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <FlagIcon className="h-8 w-8 text-white" />
-                </div>
-                
-                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                  MISIÓN
-                </h3>
-                
-                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                  ISCOR S.A.S se dedica a la aplicación de servicios eficientes de consultoría, asesoría y capacitación bajo los más altos estándares nacionales e internacionales actualizados, trabajando por el desarrollo integral de la sociedad, brindando asesoría y capacitación a la comunidad en todo lo relacionado con la prevención y atención de desastres, la seguridad, la salud ocupacional y los Sistemas de Gestión para Seguridad y Salud de los Trabajadores SGSST.
-                </p>
+            <div className="group bg-white rounded-2xl shadow-xl border border-slate-200 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl shadow-lg mb-8 group-hover:scale-110 transition-transform duration-300">
+                <FlagIcon className="h-10 w-10 text-white" />
               </div>
               
-              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-600/10 to-transparent rounded-bl-2xl"></div>
-            </motion.div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
+                MISIÓN
+              </h3>
+              
+              <p className="text-slate-600 leading-relaxed text-lg">
+                ISCOR S.A.S se dedica a la aplicación de servicios eficientes de consultoría, asesoría y capacitación bajo los más altos estándares nacionales e internacionales actualizados, trabajando por el desarrollo integral de la sociedad, brindando asesoría y capacitación a la comunidad en todo lo relacionado con la prevención y atención de desastres, la seguridad, la salud ocupacional y los Sistemas de Gestión para Seguridad y Salud de los Trabajadores SGSST.
+              </p>
+            </div>
 
             {/* Visión */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <div className="relative z-10">
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <EyeIcon className="h-8 w-8 text-white" />
-                </div>
-                
-                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                  VISIÓN
-                </h3>
-                
-                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                  Para el año 2025, Ingeniería de Seguridad y Control de Riesgos S.A.S se proyecta como una empresa sólida, de vanguardia, con reconocimiento nacional e internacional, servidora de soluciones económicas y eficaces en materia de seguridad integral, siendo una empresa líder en la región en todo lo relacionado con la seguridad, la salud ocupacional y los Sistemas de Gestion para la Seguridad y Salud de los Trabajadores SGSST, generando en la comunidad una cultura de prevención.
-                </p>
+            <div className="group bg-white rounded-2xl shadow-xl border border-slate-200 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-lg mb-8 group-hover:scale-110 transition-transform duration-300">
+                <EyeIcon className="h-10 w-10 text-white" />
               </div>
               
-              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-600/10 to-transparent rounded-bl-2xl"></div>
-            </motion.div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 group-hover:text-purple-600 transition-colors duration-300">
+                VISIÓN
+              </h3>
+              
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Para el año 2025, Ingeniería de Seguridad y Control de Riesgos S.A.S se proyecta como una empresa sólida, de vanguardia, con reconocimiento nacional e internacional, servidora de soluciones económicas y eficaces en materia de seguridad integral, siendo una empresa líder en la región en todo lo relacionado con la seguridad, la salud ocupacional y los Sistemas de Gestion para la Seguridad y Salud de los Trabajadores SGSST, generando en la comunidad una cultura de prevención.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Nuestras Fortalezas */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-800 text-sm font-medium mb-6"
-            >
-              <ShieldCheckIcon className="h-4 w-4 mr-2" />
+      {/* Nuestras Fortalezas - Estilo Boeing Profesional */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-20">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium mb-8">
+              <ShieldCheckIcon className="h-5 w-5 mr-3" />
               Nuestras Fortalezas
-            </motion.div>
-            <h2 className="text-base font-semibold leading-7 text-blue-600">Lo que nos hace diferentes</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Experiencia y Profesionalismo
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+              Lo que nos hace diferentes
+            </h2>
+            
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Experiencia, profesionalismo y compromiso con la excelencia en cada proyecto.
             </p>
           </div>
           
@@ -234,71 +214,57 @@ export default function LaEmpresa() {
                 name: 'Sistemas de Gestión',
                 description: 'Diseñamos, Implementamos y auditamos sus Sistemas de Gestión para la Seguridad y Salud de los Trabajadores SGSST.',
                 icon: ShieldCheckIcon,
+                gradient: 'from-blue-600 to-cyan-600'
               },
               {
                 name: 'Miembro del CCS',
                 description: 'Miembro del CCS – Consejo Colombiano de Seguridad y NFPA – National Fire Protection Association.',
                 icon: UserGroupIcon,
+                gradient: 'from-green-600 to-emerald-600'
               },
               {
-                name: '16+ Años de Experiencia',
-                description: 'Más de 16 años en control de tareas de alto riesgo, posicionándonos con las mejores empresas del país.',
+                name: '18+ Años de Experiencia',
+                description: 'Más de 18 años en control de tareas de alto riesgo, posicionándonos con las mejores empresas del país.',
                 icon: CheckBadgeIcon,
+                gradient: 'from-purple-600 to-violet-600'
               },
             ].map((feature, index) => (
-              <motion.div 
+              <div 
                 key={feature.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                className="group bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="h-8 w-8 text-white" />
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                    {feature.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                    {feature.description}
-                  </p>
+                <div className={`flex items-center justify-center w-20 h-20 bg-gradient-to-r ${feature.gradient} rounded-2xl shadow-lg mb-8 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="h-10 w-10 text-white" />
                 </div>
                 
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-600/10 to-transparent rounded-bl-2xl"></div>
-              </motion.div>
+                <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-blue-300 transition-colors duration-300">
+                  {feature.name}
+                </h3>
+                
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  {feature.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Nuestros Valores */}
-      <section className="relative py-16 sm:py-24">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-gray-50"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-6"
-            >
-              <StarIcon className="h-4 w-4 mr-2" />
+      {/* Nuestros Valores - Estilo GE Profesional */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-20">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-8">
+              <StarIcon className="h-5 w-5 mr-3" />
               Nuestros Valores
-            </motion.div>
-            <h2 className="text-base font-semibold leading-7 text-blue-600">Los principios que nos guían</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Excelencia y Compromiso
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8">
+              Los principios que nos guían
+            </h2>
+            
+            <p className="text-xl text-slate-600 leading-relaxed">
+              Excelencia, compromiso e innovación en todo lo que hacemos.
             </p>
           </div>
           
@@ -308,120 +274,118 @@ export default function LaEmpresa() {
                 name: 'Excelencia',
                 description: 'Nos esforzamos por la perfección en cada proyecto y en cada interacción con nuestros clientes.',
                 icon: StarIcon,
+                gradient: 'from-yellow-600 to-orange-600'
               },
               {
                 name: 'Compromiso',
                 description: 'Nos dedicamos completamente a cada proyecto hasta alcanzar los objetivos establecidos.',
                 icon: HeartIcon,
+                gradient: 'from-red-600 to-pink-600'
               },
               {
                 name: 'Innovación',
                 description: 'Buscamos constantemente nuevas formas de resolver desafíos y mejorar nuestros servicios.',
                 icon: LightBulbIcon,
+                gradient: 'from-blue-600 to-cyan-600'
               },
             ].map((value, index) => (
-              <motion.div
+              <div
                 key={value.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                className="group bg-white rounded-2xl shadow-xl border border-slate-200 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <value.icon className="h-8 w-8 text-white" />
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                    {value.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
-                    {value.description}
-                  </p>
+                <div className={`flex items-center justify-center w-20 h-20 bg-gradient-to-r ${value.gradient} rounded-2xl shadow-lg mb-8 group-hover:scale-110 transition-transform duration-300`}>
+                  <value.icon className="h-10 w-10 text-white" />
                 </div>
                 
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-600/10 to-transparent rounded-bl-2xl"></div>
-              </motion.div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
+                  {value.name}
+                </h3>
+                
+                <p className="text-slate-600 leading-relaxed text-lg">
+                  {value.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-16 sm:py-24">
+      {/* Estadísticas - Estilo Lockheed Martin */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6"
-            >
-              <PhoneIcon className="h-4 w-4 mr-2" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { number: '18+', label: 'Años de Experiencia', icon: ClockIcon },
+              { number: '500+', label: 'Empresas Atendidas', icon: BuildingOfficeIcon },
+              { number: '10,000+', label: 'Certificaciones Emitidas', icon: TrophyIcon },
+              { number: '50+', label: 'Instructores Certificados', icon: UsersIcon }
+            ].map((stat, index) => (
+              <div key={stat.label} className="text-center">
+                <div className="flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 mx-auto mb-4">
+                  <stat.icon className="h-8 w-8 text-blue-400" />
+                </div>
+                <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-gray-300 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA - Estilo IBM Profesional */}
+      <section className="py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-16">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-8">
+              <PhoneIcon className="h-5 w-5 mr-3" />
               Contáctanos
-            </motion.div>
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8">
               ¿Listo para trabajar con nosotros?
             </h2>
             
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-white/20"
-              >
-                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4 mx-auto">
-                  <PhoneIcon className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">¿Alguna pregunta?</h3>
-                <p className="text-gray-600">Llámame</p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-white/20"
-              >
-                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4 mx-auto">
-                  <CalendarIcon className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Programe una cita</h3>
-                <p className="text-gray-600">Con nosotros</p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-white/20 sm:col-span-2 lg:col-span-1"
-              >
-                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4 mx-auto">
-                  <BuildingOfficeIcon className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">La Empresa</h3>
-                <p className="text-gray-600">Conozca más sobre ISCOR</p>
-              </motion.div>
+            <p className="text-xl text-slate-600 leading-relaxed mb-12">
+              Nuestro equipo de expertos está listo para ayudarte a implementar las mejores prácticas de seguridad industrial en tu empresa.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200">
+              <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-6 mx-auto">
+                <PhoneIcon className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">¿Alguna pregunta?</h3>
+              <p className="text-slate-600 text-center">Llámame</p>
             </div>
             
-            <div className="mt-12">
-              <Link
-                href="/contacto"
-                className="inline-flex items-center rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 text-lg font-semibold text-white shadow-xl hover:shadow-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105"
-              >
-                Contactar Ahora
-                <ArrowRightIcon className="ml-2 h-5 w-5" />
-              </Link>
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200">
+              <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-2xl mb-6 mx-auto">
+                <CalendarIcon className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">Programe una cita</h3>
+              <p className="text-slate-600 text-center">Con nosotros</p>
             </div>
+            
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200 sm:col-span-2 lg:col-span-1">
+              <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-6 mx-auto">
+                <BuildingOfficeIcon className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">La Empresa</h3>
+              <p className="text-slate-600 text-center">Conozca más sobre ISCOR</p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <Link
+              href="/contacto"
+              className="group inline-flex items-center px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-xl hover:shadow-2xl"
+            >
+              <span className="flex items-center text-lg">
+                Contactar Ahora
+                <ArrowRightIcon className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform duration-200" />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
